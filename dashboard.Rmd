@@ -1,0 +1,53 @@
+---
+title: "My Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(flexdashboard)
+library(Lahman)
+library(dplyr)
+library(ggplot2)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+result<-Batting%>%
+  filter(playerID=='ruthba01')%>%
+  select(yearID,SO,HR)
+
+ggplot()+
+  geom_point(data=result,aes(x=SO,y=HR))+
+  xlab("Strike outs")+
+  ylab("Homeruns")
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+ggplot()+
+  geom_histogram(data=result,aes(x=HR),color='blue',bins=10)+
+  xlab("Homeruns")
+```
+
+### Chart C
+
+```{r}
+ggplot()+
+  geom_point(data=result,aes(x=yearID,y=HR))+
+  geom_line(data=result,aes(x=yearID,y=HR))+
+  xlab("Year")+
+  ylab("Homeruns")
+```
+
